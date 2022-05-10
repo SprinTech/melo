@@ -31,7 +31,7 @@ module.exports = {
             "fs": false,
             "os": false,
             "path": false
-        },
+          },
     },
     plugins: [
         htmlPlugin,
