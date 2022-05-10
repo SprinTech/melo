@@ -21,8 +21,6 @@ tags_metadata = [
     }
 ]
 
-models.Base.metadata.create_all(bind=engine)
-
 app = FastAPI(
     title = "Sound recognizer API",
     description = "Melomaniac predict genre of songs submitted by user using Spotify API",
