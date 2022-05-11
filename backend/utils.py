@@ -6,7 +6,7 @@ def make_get_request(token, url, params={}):
     # headers = {"Authorization": f"Bearer {session['access_token']}"}
     headers = {"Authorization": f"Bearer {token}"}
     response = requests.get(url, headers=headers, params=params)
-    
+    print(response.content)
     if response.status_code == 200:
         return response.json()
     elif response.status_code == 401 and check_token_status(token) is not None:

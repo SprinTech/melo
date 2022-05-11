@@ -40,12 +40,11 @@ def authorize():
 
 @router.get("/callback/")
 async def callback(code: str, state: str):
-    redirect_uri = REDIRECT_URI
     client_credential = CLIENT_ID + ':' + CLIENT_SECRET
-    payload = get_token(code, state, redirect_uri, client_credential)
-
+    payload = get_token(code, state, REDIRECT_URI, client_credential)
+    print(payload)
     current_user = get_user_information(payload["access_token"])
-        
+    print(current_user)
     json_user =  JSONResponse(current_user)
     
     if payload is not None:
@@ -55,4 +54,4 @@ async def callback(code: str, state: str):
 
     json_user.set_cookie(key="access_token", value=payload["access_token"])
 
-    return json_user
+    return RedirectResponse("http://localhost:8080")
