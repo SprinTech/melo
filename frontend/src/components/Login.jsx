@@ -1,11 +1,19 @@
 import React from 'react';
+import {Button} from 'react-bootstrap'
+
 const Login = () => {
 
+    const spotify_auth_url = "http://127.0.0.1:5000/api/authorize"
+
+    const  handleSpotifyAuth = () =>  window.location.href = spotify_auth_url
+
     return (
-        <a href={`${process.env.AUTH_ENDPOINT}?client_id=${process.env.CLIENT_ID}&redirect_uri=${process.env.REDIRECT_URI}&response_type=${process.env.RESPONSE_TYPE}`}>
-            Login to Spotify
-        </a>
-        );
+        <button className="spotify-green spotify-btn" onClick={handleSpotifyAuth}>
+            <i className="fa-brands fa-spotify">
+                &nbsp;<span>Log in with Spotify</span>
+            </i>
+        </button>
+    );
 }
 
 export default Login;
