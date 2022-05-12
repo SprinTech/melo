@@ -1,24 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import NavBarComponent from './Navigation';
 import Dashboard from './Dashboard';
 import SideMenu from './SideMenu';
 import Login from './Login';
 import { Col, Container, Row, Button } from 'react-bootstrap';
+import getTokenFromUrl from './spotify';
+import SpotifyWepApi from 'spotify-web-api-js'
 
+const spotify = new SpotifyWepApi();
 
 
 const App = () => {
-    const [isLogged, setIsLogged] = useState(false)
-    // const [test, setTest] = useState("")
-    // const handleOnClick = () => {
-    //     fetch('http://localhost:5000/api/v1/')
-    //         .then(response => response.json())
-    //         .then(data => setTest(data))
 
-    // }
+    const [spotifyToken, setSpotifyToken] = useState("")
+    const [isLogged, setIsLogged] = useState(false)
+
+    useEffect(() => {
+        console.log(getTokenFromUrl())
+        const _spotifyToken = getTokenFromUrl().accecs_token;
+        window.location.hash = ''
+
+        if (_spotifyToken) {
+            setSpotifyToken(_spotifyToken)
+
+            spotify.setAccessToken(_spotifyToken)
+
+            spotify.getMe().then(user => console.log(":::USER:::", user))
+            setIsLogged(true)
+        }
+
+    }, []);
+
     return (
         <div>
             <NavBarComponent isLogged={isLogged} />
+            <Dashboard/>
             <Container >
                 <Row>
                     <Col md={4}>
@@ -33,7 +49,7 @@ const App = () => {
                     </Col>
                 </Row>
                 {/* <Button onClick={handleOnClick}>Click !!!!</Button> */}
-            { !isLogged && <Login />}
+            { isLogged ? <Dashboard/> : <Login /> }
             </Container>
             {/* {test && Object.entries(test).map(([k, v]) => {
                 return (

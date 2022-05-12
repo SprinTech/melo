@@ -1,10 +1,10 @@
 import React from 'react';
 
 
-const Dashboard = () => {
+const Dashboard = ({code}) => {
     return (
         <div className="spotify-green">
-            Dashboard
+            {code}
         </div>
     );
 }

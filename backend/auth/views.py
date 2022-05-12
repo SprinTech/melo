@@ -5,9 +5,9 @@ from fastapi import APIRouter
 from fastapi.responses import RedirectResponse, JSONResponse
 from dotenv import load_dotenv
 from .crud import create_state_key, get_token
+from songs.crud import get_user_information
 
 sys.path.append("..")
-from songs.crud import get_user_information
 
 load_dotenv()
 
@@ -33,10 +33,11 @@ def authorize():
         'scope': SCOPE,
         'redirect_uri': REDIRECT_URI,
         'state': state
-    } 
+    }
     encoded_params = urllib.parse.urlencode(params)
     response = RedirectResponse(authorization_url + encoded_params)
     return response
+
 
 @router.get("/callback/")
 async def callback(code: str, state: str):
@@ -45,9 +46,9 @@ async def callback(code: str, state: str):
     payload = get_token(code, state, redirect_uri, client_credential)
 
     current_user = get_user_information(payload["access_token"])
-        
+
     json_user =  JSONResponse(current_user)
-    
+
     if payload is not None:
         json_user.set_cookie(key="access_token", value=payload["access_token"])
         json_user.set_cookie(key="refresh_token", value=payload["refresh_token"])
