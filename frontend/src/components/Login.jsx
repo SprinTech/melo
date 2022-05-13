@@ -1,6 +1,6 @@
 import React, { useState, useEffect} from 'react';
 import {Button} from 'react-bootstrap'
-import getRedirectUrl from './generateUrl';
+import getRedirectUrl from '../utils/generateUrl';
 
 const Login = () => {
 
@@ -19,7 +19,6 @@ const Login = () => {
                 }
 
                 loginWindow.close()
-                props.onAccessToken(e.data.accessToken)
             }, false)
         } else {
             window.location = spotify_auth_url

@@ -25,7 +25,7 @@ const NavBarComponent = ({ isLogged }) => {
                         <Nav.Link href="#" disabled>Link</Nav.Link>
                     </Nav>
                     {/* { !isLogged && <Login />} */}
-                    {/* <Form className="d-flex">
+                    {<Form className="d-flex">
                         <FormControl
                             type="search"
                             placeholder="Search"
@@ -33,7 +33,7 @@ const NavBarComponent = ({ isLogged }) => {
                             aria-label="Search"
                         />
                         <Button variant="secondary">Search</Button>
-                    </Form> */}
+                    </Form>}
                 </Navbar.Collapse>
             </Container>
         </Navbar>

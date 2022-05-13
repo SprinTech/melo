@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import UserInfos from './UserInfos';
+import UserPlaylists from './UserPlaylists';
 
-
-const Dashboard = ({code}) => {
+const Dashboard = ({spotify}) => {
     return (
         <div className="spotify-green">
-            {code}
+            <h1 className="display-1">Dashboard</h1>
+            <UserInfos spotify={spotify}/>
+            <UserPlaylists spotify={spotify}/>
         </div>
     );
 }
