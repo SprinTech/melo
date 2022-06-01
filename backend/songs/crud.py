@@ -59,7 +59,8 @@ def get_user_songs(playlist_id, session, limit=10):
             return None
         
         for item in payload['items']:
-            song_preview.append(item['track']['preview_url'])
+            if item['track']['preview_url'] is not None:
+                song_preview.append(item['track']['preview_url'])
 
         total = payload['total']
         offset += limit

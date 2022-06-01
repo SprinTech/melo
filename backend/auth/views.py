@@ -1,7 +1,7 @@
 import os
 import sys
 import urllib.parse
-from fastapi import APIRouter, Request
+from fastapi import APIRouter
 from fastapi.responses import RedirectResponse, JSONResponse
 from dotenv import load_dotenv
 from .crud import create_state_key, get_token
@@ -34,7 +34,6 @@ def authorize():
         'client_id': CLIENT_ID,
         'scope': SCOPE,
         'redirect_uri': REDIRECT_URI,
-        # 'redirect_uri': 'http://localhost:8080/',
         'state': state
     }
     encoded_params = urllib.parse.urlencode(params)
@@ -44,11 +43,9 @@ def authorize():
 
 @router.get("/callback/")
 async def callback(code: str, state: str):
-    redirect_uri = REDIRECT_URI
     client_credential = CLIENT_ID + ':' + CLIENT_SECRET
-    payload = get_token(code, state, redirect_uri, client_credential)
+    payload = get_token(code, state, REDIRECT_URI, client_credential)
     current_user = get_user_information(payload["access_token"])
-
     json_user =  JSONResponse(current_user)
 
     if payload is not None:
@@ -56,7 +53,4 @@ async def callback(code: str, state: str):
         json_user.set_cookie(key="refresh_token", value=payload["refresh_token"])
         json_user.set_cookie(key="token_expiration", value=payload["expires_in"])
     redirect_url = f'http://localhost:8080/?access_token={payload["access_token"]}&refresh_token={payload["refresh_token"]}&token_expiration={payload["expires_in"]}'
-    response = RedirectResponse(redirect_url)
-    return response
-
-    # return json_user
+    return RedirectResponse(redirect_url)
