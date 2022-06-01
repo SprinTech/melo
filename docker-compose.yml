@@ -1,0 +1,36 @@
+services:
+  db:
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  api:
+    container_name: fastapi
+    build:
+      context: ./backend
+    environment:
+      - DATABASE_USER=postgres
+      - DATABASE_PASSWORD=postgres
+      - DATABASE_NAME=melomaniac
+      - DATABASE_HOST=localhost
+      - DATABASE_PORT=5432
+      - CLIENT_ID=a9284e79d32640229c58154c0cc822ba
+      - CLIENT_SECRET=032b5b31c47b4ae09c5842baad75ea21
+      - REDIRECT_URI=http://127.0.0.1:5000/api/callback/
+      - SCOPE=user-read-private user-read-email
+    command: uvicorn main:app --reload --host 0.0.0.0 --port 5000
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    volumes:
+      - './backend:/backend/'
+
+volumes:
+  postgres_data:

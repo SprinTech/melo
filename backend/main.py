@@ -1,10 +1,7 @@
 from fastapi import FastAPI
 from fastapi.responses import RedirectResponse
 from fastapi.middleware.cors import CORSMiddleware
-import uvicorn
 
-import models
-from database import engine
 from users import views as user_views
 from songs import views as songs_views
 from auth import views as auth_views
@@ -55,6 +52,3 @@ async def logout():
     response.delete_cookie(key="refresh_token")
     response.delete_cookie(key="token_expiration")
     return response
-
-if __name__ == "__main__":
-    uvicorn.run("main:app", host="127.0.0.1", port=5000, debug=True, reload=True)
