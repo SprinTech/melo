@@ -49,12 +49,12 @@ async def callback(code: str, state: str):
     payload = get_token(code, state, redirect_uri, client_credential)
     current_user = get_user_information(payload["access_token"])
 
-    json_user =  JSONResponse(current_user)
+    # json_user = JSONResponse(current_user)
 
-    if payload is not None:
-        json_user.set_cookie(key="access_token", value=payload["access_token"])
-        json_user.set_cookie(key="refresh_token", value=payload["refresh_token"])
-        json_user.set_cookie(key="token_expiration", value=payload["expires_in"])
+    # if payload is not None:
+    #     json_user.set_cookie(key="access_token", value=payload["access_token"])
+    #     json_user.set_cookie(key="refresh_token", value=payload["refresh_token"])
+    #     json_user.set_cookie(key="token_expiration", value=payload["expires_in"])
     redirect_url = f'http://localhost:8080/?access_token={payload["access_token"]}&refresh_token={payload["refresh_token"]}&token_expiration={payload["expires_in"]}'
     response = RedirectResponse(redirect_url)
     return response

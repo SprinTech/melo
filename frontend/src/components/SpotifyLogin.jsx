@@ -27,18 +27,18 @@ const Login = () => {
 
 
     return (
-        <>
-        <button className="spotify-green spotify-btn" onClick={handleSpotifyAuth}>
-            <i className="fa-brands fa-spotify">
-                &nbsp;<span>Log in with Spotify</span>
-            </i>
-        </button>
+        // <>
+        // <button className="spotify-green spotify-btn" onClick={handleSpotifyAuth}>
+        //     <i className="fa-brands fa-spotify">
+        //         &nbsp;<span>Log in with Spotify</span>
+        //     </i>
+        // </button>
         <button className="spotify-green spotify-btn" onClick={e => handleClick(e)}>
             <i className="fa-brands fa-spotify">
-                &nbsp;<span>Try to login with Spotify</span>
+                &nbsp;<span>Login with Spotify</span>
             </i>
         </button>
-        </>
+        // </>
     );
 }
 

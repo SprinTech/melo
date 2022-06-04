@@ -1,10 +1,10 @@
 import React from 'react';
 import { Navbar, Nav, NavDropdown, Container, Form, FormControl, Button } from 'react-bootstrap'
-import Login from './Login';
+import Login from './SpotifyLogin';
 
-const NavBarComponent = ({ isLogged }) => {
+const Navigation = ({ isLinked, ThemeToggler, theme}) => {
     return (
-        <Navbar bg="light" expand="lg">
+        <Navbar bg={theme} variant={theme} expand="lg">
             <Container fluid>
                 <Navbar.Brand href="#">Melomaniac</Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarScroll" />
@@ -24,7 +24,8 @@ const NavBarComponent = ({ isLogged }) => {
                         </NavDropdown>
                         <Nav.Link href="#" disabled>Link</Nav.Link>
                     </Nav>
-                    {/* { !isLogged && <Login />} */}
+                    <ThemeToggler />
+                    {/* { !isLinked && <Login />} */}
                     {<Form className="d-flex">
                         <FormControl
                             type="search"
@@ -40,4 +41,4 @@ const NavBarComponent = ({ isLogged }) => {
     );
 }
 
-export default NavBarComponent;
+export default Navigation;

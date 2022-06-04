@@ -1,15 +1,17 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { CookiesProvider } from 'react-cookie';
-import App from './components/App';
+import App from './App_';
 import './index.css';
 
 const container = document.getElementById('app');
 const root = createRoot(container);
 
 root.render(
-    <CookiesProvider>
-        <App tab="Home" />
-    </CookiesProvider>
+    <React.StrictMode>
+        <CookiesProvider>
+            <App tab="Home" />
+        </CookiesProvider>
+    </React.StrictMode>
     );
 
