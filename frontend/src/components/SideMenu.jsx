@@ -33,12 +33,12 @@ const SideMenu = () => {
         "Analyse an audio stream": "test"
     }
 
-    const handleClick = (e, key) => {
+    const handleClick = (e, idx) => {
         e.preventDefault()
         // setRoute(item)
         console.log(key)
         console.log(e.target)
-        console.log(menuItems.keys(key))
+        console.log(menuItems[idx].value(menuItems[idx].key))
 
 
     }
@@ -46,9 +46,9 @@ const SideMenu = () => {
     return (
         <div className="spotify-green container">
             <img src='coffee_spotify.ico'/>
-            {Object.entries(menuItems).map(([key, value]) => {
-                return <Button key={key} onClick={e => handleClick(e, key)}>{key}</Button>
-            })}
+            {/* {Object.entries(menuItems).map(([key, value], idx) => {
+                return <Button key={key} onClick={e => handleClick(idx)}>{value}</Button>
+            })} */}
 
         </div>
     );
