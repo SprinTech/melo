@@ -19,10 +19,10 @@ tags_metadata = [
 ]
 
 app = FastAPI(
-    title = "Sound recognizer API",
-    description = "Melomaniac predict genre of songs submitted by user using Spotify API",
-    version = "0.1",
-    openapi_tags = tags_metadata
+    title="Sound recognizer API",
+    description="Melomaniac predict genre of songs submitted by user using Spotify API",
+    version="0.1",
+    openapi_tags=tags_metadata
 )
 
 origins = [
@@ -42,9 +42,11 @@ app.include_router(auth_views.router, tags=["authentication"], prefix="/api")
 app.include_router(songs_views.router, tags=["song"], prefix="/api")
 app.include_router(user_views.router, tags=["user"], prefix="/api")
 
+
 @app.get("/api/")
 async def root():
     return {"message": "Hello World !"}
+
 
 @app.get("/api/logout")
 async def logout():

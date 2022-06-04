@@ -50,7 +50,7 @@ const LoginApp = ({ setIsLogged }) => {
     const renderFormInput = (name, type) => {
         return (
             <Form.Group key={name} className="mb-3" controlId={`form-${name}`}>
-                <Form.Label>Username</Form.Label>
+                <Form.Label>[{name}]</Form.Label>
                 <Form.Control type={type} required
                     onChange={handleInputChange}
                     autoComplete={name}
@@ -77,7 +77,7 @@ const LoginApp = ({ setIsLogged }) => {
 
                 {logInOrSignUp === "login" && (
                     <>
-                        <Login />
+                        <Login setIsLogged={setIsLogged} />
                         <p className="hr-text"><span>Or</span></p>
                     </>
                 )}

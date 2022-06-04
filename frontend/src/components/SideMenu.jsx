@@ -37,7 +37,8 @@ const SideMenu = () => {
         e.preventDefault()
         // setRoute(item)
         console.log(key)
-        console.log(menuItems.key(key))
+        console.log(e.target)
+        console.log(menuItems.keys(key))
 
 
     }

@@ -2,7 +2,7 @@ import React, { useState, useEffect} from 'react';
 import {Button} from 'react-bootstrap'
 import getRedirectUrl from '../utils/generateUrl';
 
-const Login = () => {
+const Login = ({ setIsLogged }) => {
 
     const spotify_auth_url = "http://127.0.0.1:5000/api/authorize"
 
@@ -17,7 +17,6 @@ const Login = () => {
                 if (e.data.type !== 'react-spotify-auth' || !e.data.accessToken) {
                     return
                 }
-
                 loginWindow.close()
             }, false)
         } else {
