@@ -6,6 +6,17 @@ from users import views as user_views
 from songs import views as songs_views
 from auth import views as auth_views
 
+import sentry_sdk
+
+sentry_sdk.init(
+    "https://3686baa93ce34ec6b8b0539214ad535b@o1272438.ingest.sentry.io/6466042",
+
+    # Set traces_sample_rate to 1.0 to capture 100%
+    # of transactions for performance monitoring.
+    # We recommend adjusting this value in production.
+    traces_sample_rate=1.0
+)
+
 
 tags_metadata = [
     {
@@ -26,7 +37,7 @@ app = FastAPI(
 )
 
 origins = [
-    "http://localhost:3000",
+    "http://127.0.0.1:3000",
 ]
 
 app.add_middleware(
