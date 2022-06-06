@@ -2,6 +2,11 @@
     --spotify-green: #1DB954;
 }
 
+@keyframes fadein {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
 img {
     justify-content: center;
     display: flex;
@@ -28,3 +33,81 @@ i {
     border: none;
 }
 
+.container {
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+}
+
+.center {
+    position: relative;
+    margin: auto;
+    top: 40%;
+    transform: translate(0, -50%);
+    padding: 10px;
+    margin:auto;
+    }
+
+#app-login {
+
+    width: 500px;
+    height: 580px;
+    padding: 20px 40px;
+    border-radius: 20%;
+    border: 10px solid #258011;
+    background-color:white;
+    color: var(--spotify-green);
+    text-align: center;
+}
+
+#app-login * {
+    animation: fadein 0.3s linear backwards;
+}
+
+.reset-container{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    left: 0;
+    top: 0;
+    position: fixed;
+}
+
+#app-login-container > h1 {
+    text-align: center;
+}
+
+.hr-text {
+    height: 15px;
+    width:100%;
+    border-bottom: solid 2px #000;
+    text-align: center;
+    margin: 2em 0;
+    }
+
+.hr-text span {
+background: #fff;
+color: #000;
+position: relative;
+top: 0;
+padding: 0 20px;
+line-height:30px;
+}
+
+
+
+#log-submit {
+    width: 100px;
+    margin: 10px 0 15px 0;
+}
+
+#switch {
+    display: block;
+    margin: auto;
+}
+
+#not-found {
+    width: 250px;
+    border-radius: 20%;
+    text-align: center;
+}

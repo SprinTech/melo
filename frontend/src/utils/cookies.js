@@ -1,4 +1,3 @@
-import React from 'react';
 import getTokenFromUrl from './getToken';
 
 const cookieNames = ['access_token', 'refresh_token', 'token_expiration']
@@ -11,14 +10,19 @@ const generateCookies = () => {
     document.cookie = 'token_expiration=' + tokens.token_expiration
 }
 
-export const resetCookies = setIsLogged => {
+export const setLoginStatusCookie = bool => {
+    docomuent.cookie = 'logged_in_status=' + bool
+}
+
+export const resetCookies = setIsLinked => {
     console.log("resetcokkies")
     const reset_snippet = ";expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=None; Secure";
 
     document.cookie = 'access_token=' + reset_snippet
     document.cookie = 'refresh_token=' + reset_snippet
     document.cookie = 'token_expiration=' + reset_snippet
-    setIsLogged(false)
+    document.cookie = 'was_logged_in=' + reset_snippet
+    setIsLinked(false)
 }
 
 export const getCookie = name => {

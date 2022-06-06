@@ -31,11 +31,16 @@ module.exports = {
             "fs": false,
             "os": false,
             "path": false
-          },
+        },
     },
     plugins: [
         htmlPlugin,
         new Dotenv()
     ],
+    devServer: {
+        hot: true,
+        port: 8080,
+        historyApiFallback: true,
+    },
 
 };
