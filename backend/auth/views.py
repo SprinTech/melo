@@ -52,7 +52,7 @@ async def callback(code: str, state: str):
     #     json_user.set_cookie(key="access_token", value=payload["access_token"])
     #     json_user.set_cookie(key="refresh_token", value=payload["refresh_token"])
     #     json_user.set_cookie(key="token_expiration", value=payload["expires_in"])
-    redirect_url = f'http://localhost:8080/home?access_token={payload["access_token"]}&refresh_token={payload["refresh_token"]}&token_expiration={payload["expires_in"]}'
+    redirect_url = f'http://127.0.0.1:8080/home?access_token={payload["access_token"]}&refresh_token={payload["refresh_token"]}&token_expiration={payload["expires_in"]}'
     response = RedirectResponse(redirect_url)
     return response
 

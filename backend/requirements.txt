@@ -15,6 +15,7 @@ psycopg2-binary==2.9.3
 pydantic==1.9.0
 python-dotenv==0.20.0
 requests==2.27.1
+sentry-sdk==1.5.12
 sniffio==1.2.0
 SQLAlchemy==1.4.36
 starlette==0.18.0
