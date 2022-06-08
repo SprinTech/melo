@@ -1,13 +1,9 @@
 import os
-import sys
 import urllib.parse
 from fastapi import APIRouter
-from fastapi.responses import RedirectResponse, JSONResponse
+from fastapi.responses import RedirectResponse
 from dotenv import load_dotenv
 from .crud import create_state_key, get_token
-from songs.crud import get_user_information
-
-sys.path.append("..")
 
 load_dotenv()
 
@@ -19,7 +15,6 @@ CLIENT_ID = os.getenv('CLIENT_ID')
 CLIENT_SECRET = os.getenv('CLIENT_SECRET')
 REDIRECT_URI = os.getenv('REDIRECT_URI')
 SCOPE = os.getenv('SCOPE')
-
 
 
 @router.get("/authorize/")

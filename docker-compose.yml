@@ -1,14 +1,16 @@
 services:
-  db:
+  postgres:
+    container_name: postgres
     image: postgres:14.1-alpine
     restart: always
     environment:
       - POSGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
     ports:
       - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
 
   api:
     container_name: fastapi
@@ -20,7 +22,7 @@ services:
     ports:
       - "5000:5000"
     depends_on:
-      - db
+      - postgres
 
   web:
     container_name: react

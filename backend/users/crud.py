@@ -1,6 +1,5 @@
 import sys
 from sqlalchemy.orm import Session
-from fastapi.responses import JSONResponse
 
 sys.path.append("..")
 import models

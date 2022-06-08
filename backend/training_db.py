@@ -1,5 +1,4 @@
 import os
-import csv
 import psycopg2
 from psycopg2 import Error
 
@@ -9,17 +8,17 @@ DATABASE_HOST = os.getenv('DATABASE_HOST')
 DATABASE_PORT = os.getenv('DATABASE_PORT')
 DATABASE_NAME = os.getenv('DATABASE_NAME')
 
+connection = psycopg2.connect(
+    database=DATABASE_NAME,
+    user=DATABASE_USER,
+    password=DATABASE_PASSWORD,
+    host=DATABASE_HOST,
+    port=DATABASE_PORT
+)
+
+cursor = connection.cursor()
+
 try:
-    connection = psycopg2.connect(
-        database=DATABASE_NAME,
-        user=DATABASE_USER,
-        password=DATABASE_PASSWORD,
-        host=DATABASE_HOST,
-        port=DATABASE_PORT
-    )
-
-    cursor = connection.cursor()
-
     cursor.execute(
         """
         SELECT EXISTS(
@@ -167,7 +166,6 @@ except (Exception, Error) as error:
     print("Error while connecting to PostgreSQL", error)
 
 finally:
-    if connection:
-        cursor.close()
-        connection.close()
-        print("PostgreSQL connection is closed")
+    cursor.close()
+    connection.close()
+    print("PostgreSQL connection is closed")

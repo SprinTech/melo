@@ -1,68 +1,22 @@
 import sys
+from sqlalchemy.orm import Session
 
 sys.path.append("..")
-from utils import make_get_request
+import models
+import schemas
 
-def get_user_information(session):
-    """
-    Return Spotify username
-    """
-    url = 'https://api.spotify.com/v1/me'
-    payload = make_get_request(session, url)
+def get_song(db: Session, song_id: int):
+    return db.query(models.Song).filter(models.Song.id == song_id).first()
 
-    if payload is None:
-        return None
+def get_song_by_title(db: Session, title: str):
+    return db.query(models.Song).filter(models.Song.title == title).first()
 
-    return payload
+def get_users(db: Session, skip: int = 0, limit: int = 100):
+    return db.query(models.Song).offset(skip).limit(limit).all()
 
-def get_user_playlist(session, limit=10):
-    """
-    Connect to user playlist in Spotify and 
-    """
-    url = 'https://api.spotify.com/v1/me/playlists'
-
-    offset = 0
-    playlist_id = []
-    
-    total = 1
-    while total > offset:
-        params = {'limit': limit, 'offset': offset}
-        payload = make_get_request(session, url, params)
-        
-        if payload is None:
-            return None
-        
-        for item in payload['items']:
-            playlist_id.append(item['id'])
-
-        total = payload['total']
-        offset += limit
-
-    return payload
-
-def get_user_songs(playlist_id, session, limit=10):
-    """
-    Connect to user playlist in Spotify and 
-    """
-    url = f"https://api.spotify.com/v1/playlists/{playlist_id}/tracks"
-    
-    offset = 0
-    song_preview = []
-    
-    total = 1
-    
-    while total > offset:
-        params = {'limit': limit, 'offset': offset}
-        payload = make_get_request(session, url, params)
-        
-        if payload is None:
-            return None
-        
-        for item in payload['items']:
-            if item['track']['preview_url'] is not None:
-                song_preview.append(item['track']['preview_url'])
-
-        total = payload['total']
-        offset += limit
-        
-    return song_preview
+def create_song(db: Session, song: schemas.SongBase):
+    db_song = models.Song(**dict(song))
+    db.add(db_song)
+    db.commit()
+    db.refresh(db_song)
+    return db_song

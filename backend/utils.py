@@ -1,5 +1,14 @@
 import requests
 from auth.crud import check_token_status
+from database import SessionLocal
+
+# Dependency
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
 
 # REQUEST OPERATIONS
 def make_get_request(token, url, params={}):

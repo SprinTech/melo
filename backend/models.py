@@ -4,7 +4,7 @@ from sqlalchemy.sql import func
 
 from database import Base
 
-association_table = Table("association", Base.metadata,
+association_table = Table("users_songs", Base.metadata,
                     Column("user_id", ForeignKey("users.id"), primary_key=True),
                     Column("song_id", ForeignKey("songs.id"), primary_key=True)
                     )

@@ -5,18 +5,11 @@ from typing import List
 from . import crud
 
 sys.path.append("..")
+from utils import get_db
 import schemas
-from database import SessionLocal
 
 router = APIRouter()
 
-# Dependency
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
 @router.post("/users/", response_model=schemas.User, status_code=201)
 def create_user(user: schemas.UserBase, db: Session = Depends(get_db)):
