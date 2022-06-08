@@ -1,40 +1,53 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Navbar, Nav, NavDropdown, Container, Form, FormControl, Button } from 'react-bootstrap'
+import Dashboard from './Dashboard';
 import Login from './SpotifyLogin';
+import Analyze from './Analyze';
 
-const Navigation = ({ isLinked, ThemeToggler, theme}) => {
+
+const Navigation = ({ isLinked, setView, ThemeToggler, theme}) => {
+
+
+    const handleSelect = e => {
+        console.log(e)
+        setView(e)
+    }
+
+    const searchForm = (
+        <Form className="d-flex">
+            <FormControl
+                type="search"
+                placeholder="Search"
+                className="me-2"
+                aria-label="Search"
+            />
+            <Button variant="secondary">Search</Button>
+        </Form>
+    )
+
     return (
         <Navbar bg={theme} variant={theme} expand="lg">
             <Container fluid>
-                <Navbar.Brand href="#">Melomaniac</Navbar.Brand>
+                <Navbar.Brand href="/home">Melomaniac</Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarScroll" />
                 <Navbar.Collapse id="navbarScroll">
-                    <Nav
-                    className="me-auto my-2 my-lg-0"
-                    style={{ maxHeight: '100px' }}
-                    navbarScroll
-                    >
-                        <Nav.Link href="#action1">Home</Nav.Link>
-                        <Nav.Link href="#action2">Link</Nav.Link>
-                        <NavDropdown title="Link" id="navbarScrollingDropdown">
+                    <Nav    onSelect={handleSelect} className="me-auto my-2 my-lg-0"
+                            style={{ maxHeight: '100px' }}
+                            navbarScroll>
+                        <Nav.Item><Nav.Link hidden={!isLinked} eventKey="Dashboard">Dashboard</Nav.Link></Nav.Item>
+                        <Nav.Item><Nav.Link eventKey="Analyze">Analyze</Nav.Link></Nav.Item>
+                        <Nav.Item><Nav.Link eventKey="Other">Other</Nav.Link></Nav.Item>
+                        {/* <NavDropdown title="Link" id="navbarScrollingDropdown">
                             <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
                             <NavDropdown.Item href="#action4">Another action</NavDropdown.Item>
                             <NavDropdown.Divider />
                             <NavDropdown.Item href="#action5">Something else here</NavDropdown.Item>
-                        </NavDropdown>
-                        <Nav.Link href="#" disabled>Link</Nav.Link>
+                            </NavDropdown>
+                        <Nav.Link href="#" disabled>Link</Nav.Link> */}
                     </Nav>
+                    {!isLinked && <Login />}
                     <ThemeToggler />
-                    {/* { !isLinked && <Login />} */}
-                    {<Form className="d-flex">
-                        <FormControl
-                            type="search"
-                            placeholder="Search"
-                            className="me-2"
-                            aria-label="Search"
-                        />
-                        <Button variant="secondary">Search</Button>
-                    </Form>}
+                    {searchForm}
                 </Navbar.Collapse>
             </Container>
         </Navbar>

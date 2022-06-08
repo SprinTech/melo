@@ -15,7 +15,6 @@ export const setLoginStatusCookie = bool => {
 }
 
 export const resetCookies = setIsLinked => {
-    console.log("resetcokkies")
     const reset_snippet = ";expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=None; Secure";
 
     document.cookie = 'access_token=' + reset_snippet

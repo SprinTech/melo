@@ -1,56 +1,81 @@
-import React, { useEffect } from 'react';
-import { Card, Button } from 'react-bootstrap'
-import SpotifyPlayer from 'react-spotify-web-playback';
+import React, { useEffect, useState } from 'react';
+import { Card, Button, Container } from 'react-bootstrap'
+import SpotifyWepApi from 'spotify-web-api-js';
 
 
-const UserPlaylists = ({spotifyApi, token}) => {
-
+const UserPlaylists = ({ spotifyApi, token }) => {
+    const [playlists, setPlaylists] = useState([])
     // spotifyApi.play({
     //     playerInstance: player,
     //     spotify_uri: 'spotify:track:7xGfFoTpQ2E7fRF5lN10tr',
     // })
 
+    const getPlaylists = limit => {
+        spotifyApi.getUserPlaylists({limit : limit})
+        .then(data => {
+            setPlaylists(data.items)
+        }, err => {
+            console.error(err);
+        });
+    }
+
     useEffect(() => {
-        spotifyApi.setAccessToken(token)
-        // SpotifyWebApi.getNewReleases().then(release => console.log(release))
+        getPlaylists(5)
+    //     console.log(spotifyApi.getAccessToken())
+    //     spotifyApi.setAccessToken(token)
+    //     spotifyApi.getNewReleases().then(release => console.log(release))
         // spotifyApi.searchTracks("artist:nosferatu+track:when angels cries",  {limit: 5})
-        //     .then(({tracks}) => console.log(tracks))
-        // spotifyApi.getAudioFeaturesForTracks(['6CrF67AtRcd6hb7G3jIozp'])
-        //     .then((data) => {
-        //         console.log(data);
-        //     }, function(err) {
-        //         done(err);
-        //     });
-    }, [token]);
+    //         .then(({tracks}) => console.log(tracks))
+    //     spotifyApi.getAudioFeaturesForTracks(['6CrF67AtRcd6hb7G3jIozp'])
+    //         .then((data) => {
+    //             console.log(data);
+    //         }, function(err) {
+    //             done(err);
+    //         });
 
+    }, []);
 
-    // const playlists = spotify.getUserPlaylists()
-    // spotifyApi.getPlaylist('4vHIKV7j4QcZwgzGQcZg1x')
+    // spotifyApi.setAccessToken(token)
+    // spotifyApi.getUserPlaylists()
+    //     .then(function(data) {
+    //         console.log('User playlists', data);
+    //         setPlaylists(data)
+    //     }, function(err) {
+    //         console.error(err);
+    //     });
+    // spotifyApi.getPlaylist('3eZ6EeVIsQ80csuVzuKHKi')
     //     .then(function(data) {
     //         console.log('User playlist', data);
     //     }, function(err) {
     //         console.error(err);
     //     });
+
+    const cardStyle = {
+        width: '18rem',
+        display: "inline-block",
+        margin: "0 10px",
+
+    }
+
     return (
         <>
         <h1>My playlists</h1>
-        {/* <SpotifyPlayer
-            token={token}
-            uris={['spotify:track:7xGfFoTpQ2E7fRF5lN10tr']}
-            autoPlay play
-        />; */}
-        {/* {playlists.map(playlist => {
-            <Card style={{ width: '18rem' }}>
-                <Card.Img variant="top" src="holder.js/100px180" />
-                <Card.Body>
-                    <Card.Title>{playlist.title}</Card.Title>
-                    <Card.Text>
-                    {playlist.description}
-                    </Card.Text>
-                    <Button variant="primary">Do something</Button>
-                </Card.Body>
-            </Card>
-        })} */}
+        <Container fluid>
+        {playlists && playlists.map((playlist, idx) => {
+            return (
+                <Card className="playlist-card" key={idx} style={cardStyle}>
+                    <Card.Img variant="top" src={playlist.images[0].url} />
+                    <Card.Body>
+                        <Card.Title>{playlist.name}</Card.Title>
+                        <Card.Text>
+                            <a href={playlist.tracks.href} />
+                        </Card.Text>
+                        <Button variant="primary">Do something</Button>
+                    </Card.Body>
+                </Card>
+            )
+        })}
+        </Container>
         </>
     )
 }

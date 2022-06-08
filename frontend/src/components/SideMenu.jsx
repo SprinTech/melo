@@ -7,8 +7,8 @@ const SideMenu = () => {
 
     // const menuItems = [
     //     "Upload a file",
-    //     "Analyse a playlist",
-    //     "Analyse an audio stream"
+    //     "Analyze a playlist",
+    //     "Analyze an audio stream"
     // ]
 
     const menuItems = [
@@ -17,11 +17,11 @@ const SideMenu = () => {
             value: upper
         },
         {
-            key: "Analyse a playlist",
+            key: "Analyze a playlist",
             value: upper
         },
         {
-            key: "Analyse an audio stream",
+            key: "Analyze an audio stream",
             value: upper
         }
     ]
@@ -29,8 +29,8 @@ const SideMenu = () => {
 
     const menuItems_0 = {
         "Upload a file": upper,
-        "Analyse a playlist": "upper",
-        "Analyse an audio stream": "test"
+        "Analyze a playlist": "upper",
+        "Analyze an audio stream": "test"
     }
 
     const handleClick = (e, idx) => {

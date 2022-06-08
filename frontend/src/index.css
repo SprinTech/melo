@@ -111,3 +111,7 @@ line-height:30px;
     border-radius: 20%;
     text-align: center;
 }
+
+#theme-toggler {
+    margin: 0 30px;
+}

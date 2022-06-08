@@ -1,12 +1,12 @@
 import React, { useState, useEffect} from 'react';
-import {Button} from 'react-bootstrap'
+import {Button, Row} from 'react-bootstrap'
 import getRedirectUrl from '../utils/generateUrl';
 
 const Login = ({ setIsLogged }) => {
 
     const spotify_auth_url = "http://127.0.0.1:5000/api/authorize"
 
-    const  handleSpotifyAuth = () =>  window.location.href = spotify_auth_url
+    // const  handleSpotifyAuth = () =>  window.location.href = spotify_auth_url
 
     const handleClick = e => {
         e.preventDefault()
@@ -32,12 +32,15 @@ const Login = ({ setIsLogged }) => {
         //         &nbsp;<span>Log in with Spotify</span>
         //     </i>
         // </button>
+        <Row>
         <button className="spotify-green spotify-btn" onClick={e => handleClick(e)}>
             <i className="fa-brands fa-spotify">
                 &nbsp;<span>Login with Spotify</span>
             </i>
         </button>
+        </Row>
         // </>
+
     );
 }
 

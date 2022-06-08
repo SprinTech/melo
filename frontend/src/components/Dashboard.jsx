@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from 'react';
+import { Row } from 'react-bootstrap';
 import UserInfos from './UserInfos';
-import UserPlaylists from './UserPlaylists';
+import SpotifyWepApi from 'spotify-web-api-js';
 
-const Dashboard = ({spotifyApi, token}) => {
+
+let spotifyApi = new SpotifyWepApi();
+
+const Dashboard = ({ token }) => {
+
+
     return (
-        <div className="spotify-green">
+        <Row className="spotify-green">
             <h1 className="display-1">Dashboard</h1>
             <UserInfos spotifyApi={spotifyApi} token={token}/>
-            <UserPlaylists spotifyApi={spotifyApi} token={token}/>
-        </div>
+        </Row>
     );
 }
 export default Dashboard;

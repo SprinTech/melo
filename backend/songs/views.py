@@ -11,7 +11,7 @@ async def user_playlist(request: Request):
     playlist_names = get_user_playlist(access_token)
     return JSONResponse(playlist_names)
 
-s
+
 @router.get("/songs/")
 async def user_songs(request: Request):
     access_token = request.cookies.get("access_token")

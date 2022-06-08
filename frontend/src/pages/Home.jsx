@@ -4,7 +4,6 @@ import { Col, Container, Row, Button } from 'react-bootstrap';
 import {ThemeProvider} from "styled-components";
 import { GlobalStyles } from "../components/GlobalStyle";
 
-import SpotifyWepApi from 'spotify-web-api-js';
 
 import getTokenFromUrl from '../utils/getToken';
 import generateCookies, { getCookie, resetCookies } from '../utils/cookies';
@@ -13,18 +12,29 @@ import { lightTheme, darkTheme } from "../components/Themes"
 import Login from '../components/SpotifyLogin';
 import Navigation from '../components/Navigation';
 import Dashboard from '../components/Dashboard';
-import SideMenu from '../components/SideMenu';
-
-let spotifyApi = new SpotifyWepApi();
+import Main from '../components/Main';
+import Analyze from '../components/Analyze';
+// import SideMenu from '../components/SideMenu';
 
 const Home = () => {
 
-    const [token, setToken] = useState("")
+    // is linked to spotify or not
     const [isLinked, setIsLinked] = useState(false)
+    // component to display when nav item is clicked
+    const [view, setView] = useState("Dashboard")
+    // token for spotify API queries
+    const [token, setToken] = useState("")
 
+    // handle color scheme
     const [theme, setTheme] = useState('light');
     const handleThemeToggle = () => theme === 'light' ? setTheme('dark') : setTheme('light')
-    const ThemeToggler = () => <Button className='spotify-green' onClick={handleThemeToggle}>Switch Theme</Button>
+
+    const ThemeToggler = () => <Button id="theme-toggler" className='spotify-green' onClick={handleThemeToggle}>Switch Theme</Button>
+
+    const handleReset = () => {
+        setView("Dashboard")
+        resetCookies(setIsLinked)
+    }
 
     useEffect(() => {
         // check if we were already connected to spotify
@@ -39,45 +49,40 @@ const Home = () => {
                 setToken(_access_token)
                 setIsLinked(true)
                 generateCookies()
-
-                // clean the adress bar
-                history.replaceState(null, document.getElementsByTagName("title")[0].innerHTML, window.location.pathname)
             }
         }
-        if (token) {
-            spotifyApi.setAccessToken(token)
-            // spotifyApi.getNewReleases().then(release => console.log("release", release))
-        }
-    }, [document.cookie, token]); // dependencies : re-run only when this value change
+        // clean the adress bar
+        history.replaceState(null, document.getElementsByTagName("title")[0].innerHTML, window.location.pathname)
+    }, [document.cookie, token]); // dependencies : re-run only when on of these values change
+
+    const resetCookiesBtn = (
+        <Button className="spotify-btn fa-brands fa-name"
+                variant="danger"
+                onClick={() => handleReset}>
+            Reset cookies
+        </Button>
+    )
 
     // spotifyApi.setAccessToken(token)
     return (
         <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
             <GlobalStyles/>
                 <div className='App'>
-                    <Navigation isLinked={isLinked} ThemeToggler={ThemeToggler} theme={theme}/>
-                    <Container>
+                    <Navigation isLinked={isLinked} setView={setView} ThemeToggler={ThemeToggler} theme={theme}/>
+                    <Container fluid>
+                        {
+                            view === "Dashboard" && isLinked ? <Dashboard token={token}/> :
+                            view === "Analyze" && isLinked ? <Analyze />  :
+                            view === "Other" && isLinked && <Main />
+                        }
                         <Row>
-                            <Col md={4}>
-                                <SideMenu />
-                            </Col>
-                            <Col md={8}>
-                                {/* <Main/> */}
-                                <img src='https://dummyimage.com/600x300.gif' alt=''/>
-                            </Col>
+                            <Col md={4}>{/* <SideMenu /> */}</Col>
+                            <Col md={8}>{/* <Main/> */}</Col>
                         </Row>
-
-                        { isLinked ? <Dashboard spotifyApi={spotifyApi} token={token}/> : <Login />}
-                        { isLinked && <Button
-                                className="spotify-btn fa-brands fa-name"
-                                variant="danger"
-                                onClick={() => resetCookies(setIsLinked)}>
-                            Reset cookies
-                        </Button>}
+                        {resetCookiesBtn}
                     </Container>
                 </div>
         </ThemeProvider>
     );
 }
-
 export default Home

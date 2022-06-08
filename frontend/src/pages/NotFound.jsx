@@ -8,7 +8,7 @@ const NotFound = () => {
     <Alert id="not-found" className="center" variant="danger">
       <h2>Error 404</h2>
       <p>This page doesn't exist</p>
-      <Link to="/">Back to home</Link>
+      <Link to="/">Back to login page</Link>
     </Alert>
     </div>
   );

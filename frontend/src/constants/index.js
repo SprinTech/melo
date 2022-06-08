@@ -1,1 +1,1 @@
-export * from './loginApp'
+export * from './loginApp';

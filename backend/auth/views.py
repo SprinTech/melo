@@ -21,7 +21,6 @@ REDIRECT_URI = os.getenv('REDIRECT_URI')
 SCOPE = os.getenv('SCOPE')
 
 
-
 @router.get("/authorize/")
 def authorize():
     """
