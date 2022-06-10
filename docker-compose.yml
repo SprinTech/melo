@@ -2,7 +2,6 @@ services:
   postgres:
     container_name: postgres
     image: postgres:14.1-alpine
-    restart: always
     environment:
       - POSGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
@@ -10,7 +9,7 @@ services:
       - postgres_data:/var/lib/postgresql/data/
     ports:
       - "5432:5432"
-    restart: unless-stopped
+    restart: always
 
   api:
     container_name: django
