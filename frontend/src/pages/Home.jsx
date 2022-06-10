@@ -53,7 +53,7 @@ const Home = () => {
         }
         // clean the adress bar
         history.replaceState(null, document.getElementsByTagName("title")[0].innerHTML, window.location.pathname)
-    }, [document.cookie, token]); // dependencies : re-run only when on of these values change
+    }, [document.cookie, token]); // dependencies : re-run only when one of these values change
 
     const resetCookiesBtn = (
         <Button className="spotify-btn fa-brands fa-name"

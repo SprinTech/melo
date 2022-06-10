@@ -4,6 +4,15 @@ import Navigation from '../components/Navigation';
 import UserPlaylists from '../components/UserPlaylists'
 import { getCookie } from '../utils/cookies';
 
+// [ ] api call -> get playlists
+// [ ] api call -> get tracklist
+// [ ] predictions :
+//      [ ] single spotify track
+//      [ ] spotify playlist
+//      [ ] uploaded file
+//      [ ] from soundboard
+
+
 const Analyze = () => {
     let spotifyApi = new SpotifyWebApi();
     let token = getCookie("access_token")

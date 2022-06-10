@@ -4,6 +4,13 @@ import UserInfos from './UserInfos';
 import SpotifyWepApi from 'spotify-web-api-js';
 
 
+
+// [ ] api call -> user's stats
+// [ ] dataviz stats
+
+
+
+
 let spotifyApi = new SpotifyWepApi();
 
 const Dashboard = ({ token }) => {

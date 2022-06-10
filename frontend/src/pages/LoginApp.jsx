@@ -27,8 +27,7 @@ const LoginApp = ({ setIsLogged }) => {
     const handleSubmit = e => {
         e.preventDefault()
         setIsLogged(true)
-        // return
-        // // TEMP RETURN
+        // TODO authentification handler
         // // Find user login info
         // const userData = database.find((user) => user.username === uname.value);
 
