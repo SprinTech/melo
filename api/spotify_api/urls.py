@@ -4,5 +4,6 @@ from .views import *
 urlpatterns = [
     path('authorize/', AuthURL.as_view()),
     path('callback/', spotify_callback),
-    path('is-authenticated', IsAuthenticated.as_view()),
+    path('me/', CurrentUser.as_view()),
+    path('playlist/', UserPlaylist.as_view()),
 ]

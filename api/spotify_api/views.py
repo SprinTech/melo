@@ -1,15 +1,17 @@
 import os
-from requests import post, Request
+from requests import get, post, Request
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 
 from rest_framework import status
 from .utils import (
     update_or_create_user_tokens,
-    is_spotify_authenticated
+    is_spotify_authenticated,
+    execute_spotify_api_request
 )
 
+from .permissions import HasSpotifyToken
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -28,8 +30,7 @@ class AuthURL(APIView):
             'redirect_uri': REDIRECT_URI,
             'client_id': CLIENT_ID
         }).prepare().url
-
-        return Response({'url': url}, status=status.HTTP_200_OK)
+        return redirect(url)
 
 
 def spotify_callback(request, format=None):
@@ -56,11 +57,21 @@ def spotify_callback(request, format=None):
     update_or_create_user_tokens(
         request.session.session_key, access_token, token_type, expires_in, refresh_token)
 
-    url = f'http://127.0.0.1:8080/'
+    url = f'http://127.0.0.1:8080/home?access_token={access_token}&refresh_token={refresh_token}&token_expiration={expires_in}'
     return redirect(url)
+    
+class CurrentUser(APIView):
+    permission_classes = (HasSpotifyToken, )
 
-class IsAuthenticated(APIView):
-    def get(self, request, format=None):
-        is_authenticated = is_spotify_authenticated(
-            self.request.session.session_key)
-        return Response({'status': is_authenticated}, status=status.HTTP_200_OK)
+    def get(self, request, *args, **kwargs):
+        token = self.request.session.session_key
+        response = execute_spotify_api_request(token, 'me')
+        return Response(response)
+
+class UserPlaylist(APIView):
+    permission_classes = (HasSpotifyToken, )
+
+    def get(self, request, *args, **kwargs):
+        token = self.request.session.session_key
+        response = execute_spotify_api_request(token, 'me/playlists')
+        return Response(response)

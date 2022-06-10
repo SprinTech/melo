@@ -13,8 +13,6 @@ BASE_URL_ME = "https://api.spotify.com/v1/me/"
 CLIENT_ID = os.getenv('CLIENT_ID')
 CLIENT_SECRET = os.getenv('CLIENT_SECRET')
 
-BASE_URL = "https://api.spotify.com/v1/me/"
-
 
 def get_user_tokens(session_id):
     user_tokens = SpotifyToken.objects.filter(user=session_id)
