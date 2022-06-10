@@ -1,5 +1,5 @@
 import os
-from requests import get, post, Request
+from requests import post, Request
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.shortcuts import redirect
@@ -57,7 +57,7 @@ def spotify_callback(request, format=None):
     update_or_create_user_tokens(
         request.session.session_key, access_token, token_type, expires_in, refresh_token)
 
-    url = f'http://127.0.0.1:8080/home?access_token={access_token}&refresh_token={refresh_token}&token_expiration={expires_in}'
+    url = f'http://127.0.0.1:8080/'
     return redirect(url)
     
 class CurrentUser(APIView):
