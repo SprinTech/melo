@@ -28,7 +28,7 @@ const UserInfos = ({spotifyApi, token}) => {
 
     return (
         <ul>
-            {infosToDisplay.map(info => {
+            {me !== null && infosToDisplay.map(info => {
                 return <li key={info}><b>{info} :</b> {me[info]}</li>
             })}
         </ul>

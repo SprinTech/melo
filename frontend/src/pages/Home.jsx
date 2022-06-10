@@ -58,7 +58,7 @@ const Home = () => {
     const resetCookiesBtn = (
         <Button className="spotify-btn fa-brands fa-name"
                 variant="danger"
-                onClick={() => handleReset}>
+                onClick={handleReset}>
             Reset cookies
         </Button>
     )
@@ -75,6 +75,8 @@ const Home = () => {
                             view === "Analyze" && isLinked ? <Analyze />  :
                             view === "Other" && isLinked && <Main />
                         }
+
+                        {/* <Analyze/> */}
                         <Row>
                             <Col md={4}>{/* <SideMenu /> */}</Col>
                             <Col md={8}>{/* <Main/> */}</Col>

@@ -25,7 +25,8 @@ export const resetCookies = setIsLinked => {
 }
 
 export const getCookie = name => {
-    return document.cookie
+
+    return document.cookie && document.cookie
         .split('; ')
         .find(row => row.startsWith(name+'='))
         .split('=')[1];
