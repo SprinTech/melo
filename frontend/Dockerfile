@@ -1,4 +1,4 @@
-FROM node:alpine3.15
+FROM node:18-alpine3.14
 
 WORKDIR app/frontend
 
