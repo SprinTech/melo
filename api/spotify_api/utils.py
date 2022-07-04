@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 BASE_URL = "https://api.spotify.com/v1/"
-BASE_URL_ME = "https://api.spotify.com/v1/me/"
+BASE_URL_ME = os.path.join(BASE_URL, "me")
 CLIENT_ID = os.getenv('CLIENT_ID')
 CLIENT_SECRET = os.getenv('CLIENT_SECRET')
 

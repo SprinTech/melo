@@ -20,6 +20,7 @@ REDIRECT_URI = os.getenv('REDIRECT_URI')
 CLIENT_ID = os.getenv('CLIENT_ID')
 CLIENT_SECRET = os.getenv('CLIENT_SECRET')
 
+
 class AuthURL(APIView):
     def get(self, request, fornat=None):
         scopes = 'user-read-private user-read-email'
