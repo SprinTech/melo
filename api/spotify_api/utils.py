@@ -16,7 +16,6 @@ CLIENT_SECRET = os.getenv('CLIENT_SECRET')
 
 def get_user_tokens(session_id):
     user_tokens = SpotifyToken.objects.filter(user=session_id)
-
     if user_tokens.exists():
         return user_tokens[0]
     else:
@@ -72,9 +71,10 @@ def refresh_spotify_token(session_id):
 
 
 def execute_spotify_api_request(session_id, endpoint, post_=False, put_=False):
+    # print(session_id)
     tokens = get_user_tokens(session_id)
     headers = {'Content-Type': 'application/json',
-               'Authorization': "Bearer " + tokens.access_token}
+               'Authorization': "Bearer " + session_id}
 
     if post_:
         post(BASE_URL + endpoint, headers=headers)

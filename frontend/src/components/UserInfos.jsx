@@ -30,7 +30,7 @@ const UserInfos = ({spotifyApi, token}) => {
     // }, []);
 
     useEffect(() => {
-    fetch('/me')
+    fetch('http://127.0.0.1:8000/api/me/')
     .then(response => {
         console.log(response)
         response.json()

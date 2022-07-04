@@ -25,6 +25,7 @@ export const resetCookies = setIsLinked => {
 }
 
 export const getCookie = name => {
+    console.log(document.cookie)
     if (document.cookie && document.cookie.indexOf('; ') !== -1) {
         return document.cookie
         .split('; ')
