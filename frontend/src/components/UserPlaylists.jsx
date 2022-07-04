@@ -35,10 +35,10 @@ const UserPlaylists = ({ spotifyApi }) => {
 
     // TODO call  to backend api for fetching playlists
     useEffect(() => {
-        getPlaylists()
-        //     fetch('/songs/playlists')
-        //     .then(response => response.json())
-        //     .then(data => setPlaylists(data));
+        // getPlaylists()
+        fetch('/playlists')
+        .then(response => response.json())
+        // .then(data => setPlaylists(data));
         //     // empty dependency array means this effect will only run once (like componentDidMount in classes)
             }, []);
 

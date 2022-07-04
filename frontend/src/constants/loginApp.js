@@ -24,7 +24,7 @@ module.exports = Object.freeze({
     connectionOptions: {
         login: {
             text: "Log In",
-            switch: "Dont have an account ? Click here for sign up"
+            switch: "Dont have an account ? Click here for sign"
         },
         signup: {
             text: "Sign Up",

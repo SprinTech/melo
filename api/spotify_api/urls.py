@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import *
+
+from .views import AuthURL, CurrentUser, UserPlaylist, spotify_callback
 
 urlpatterns = [
     path('authorize/', AuthURL.as_view()),

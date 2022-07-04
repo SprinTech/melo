@@ -1,6 +1,6 @@
 import React, { useState, useEffect} from 'react';
 import {Button, Row} from 'react-bootstrap'
-import getRedirectUrl from '../utils/generateUrl';
+// import getRedirectUrl from '../utils/generateUrl';
 
 const Login = ({ setIsLogged }) => {
 
