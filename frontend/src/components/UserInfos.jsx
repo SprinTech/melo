@@ -6,8 +6,8 @@ import useLocalStorageState from 'use-local-storage-state'
 const UserInfos = ({spotifyApi, token}) => {
 
     const _me = JSON.parse(localStorage.getItem('me'))
-    const [me, setMe] = useState({})
-    // const [me, setMe] = useLocalStorageState('me', _me)
+    // const [me, setMe] = useState()
+    const [me, setMe] = useLocalStorageState('me', _me)
     const infosToDisplay = ["country", "display_name", "email"]
 
     // const _getMe = () => {
@@ -39,25 +39,22 @@ const UserInfos = ({spotifyApi, token}) => {
                 "Content-Type": "application/json",
                 "AccessToken": token
             },
-
         })
-        .then(response => {
-            console.log(response)
-            // response.json()
-        })
-        // .then(data => {
-        //     console.log(data)
-        //     setMe(data)
-        // });
+        .then(response => response.json())
+        .then(data => {
+            setMe(data)
+        });
         // empty dependency array means this effect will only run once (like componentDidMount in classes)
     }, []);
 
     return (
         <ul>
-            {me && console.log(me)}
-            {/* {me !== null && infosToDisplay.map(info => {
+            {me !== null && infosToDisplay.map(info => {
                 return <li key={info}><b>{info} :</b> {me[info]}</li>
-            })} */}
+            })}
+            <li key="user_link">
+                <a href={me["external_urls"]["spotify"]}>Profile link</a>
+            </li>
         </ul>
     )
 }
