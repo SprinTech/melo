@@ -30,20 +30,20 @@ const UserInfos = ({spotifyApi, token}) => {
     // }, []);
 
     useEffect(() => {
-    fetch('/me')
-    .then(response => {
-        console.log(response)
-        response.json()
-    })
+    fetch('http://127.0.0.1/api/me')
+    .then(response => response.json())
     .then(data => {
         console.log(data)
         setMe(data)
+        // localStorage.setItem('me', JSON.stringify(user))
+
     });
     // empty dependency array means this effect will only run once (like componentDidMount in classes)
     }, []);
 
     return (
         <ul>
+            {me && console.log(me)}
             {/* {me !== null && infosToDisplay.map(info => {
                 return <li key={info}><b>{info} :</b> {me[info]}</li>
             })} */}
