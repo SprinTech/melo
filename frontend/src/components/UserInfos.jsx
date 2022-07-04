@@ -30,16 +30,26 @@ const UserInfos = ({spotifyApi, token}) => {
     // }, []);
 
     useEffect(() => {
-    fetch('/me')
-    .then(response => {
-        console.log(response)
-        response.json()
-    })
-    .then(data => {
-        console.log(data)
-        setMe(data)
-    });
-    // empty dependency array means this effect will only run once (like componentDidMount in classes)
+        token = localStorage.getItem("access_token")
+        fetch('http://127.0.0.1:8000/api/me/', {
+            crossDomain: true,
+            method:'GET',
+            mode: "cors",
+            headers: {
+                "Content-Type": "application/json",
+                "AccessToken": token
+            },
+
+        })
+        .then(response => {
+            console.log(response)
+            // response.json()
+        })
+        // .then(data => {
+        //     console.log(data)
+        //     setMe(data)
+        // });
+        // empty dependency array means this effect will only run once (like componentDidMount in classes)
     }, []);
 
     return (

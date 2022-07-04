@@ -62,15 +62,15 @@ def spotify_callback(request, format=None):
     return redirect(url)
 
 class CurrentUser(APIView):
-    permission_classes = (HasSpotifyToken, )
+    # permission_classes = (HasSpotifyToken, )
 
     def get(self, request, *args, **kwargs):
-        token = self.request.session.session_key
+        token = request.headers["AccessToken"]
         response = execute_spotify_api_request(token, 'me')
         return Response(response)
 
 class UserPlaylist(APIView):
-    permission_classes = (HasSpotifyToken, )
+    # permission_classes = (HasSpotifyToken, )
 
     def get(self, request, *args, **kwargs):
         token = self.request.session.session_key

@@ -25,11 +25,16 @@ export const resetCookies = setIsLinked => {
 }
 
 export const getCookie = name => {
-
-    return document.cookie && document.cookie
-        .split('; ')
-        .find(row => row.startsWith(name+'='))
-        .split('=')[1];
+    if (document.cookie) {
+        if (document.cookie.indexOf('; ') !== -1) {
+            return document.cookie
+            .split('; ')
+            .find(row => row.startsWith(name+'='))
+            .split('=')[1];
+        } else {
+            return document.cookie.startsWith(name+'=') && document.cookie.split('=')[1];
+        }
+    }
 }
 
 export default generateCookies;
