@@ -54,7 +54,6 @@ def spotify_callback(request, format=None):
 
     if not request.session.exists(request.session.session_key):
         request.session.create()
-
     update_or_create_user_tokens(
         request.session.session_key, access_token, token_type, expires_in, refresh_token)
 
@@ -62,15 +61,15 @@ def spotify_callback(request, format=None):
     return redirect(url)
 
 class CurrentUser(APIView):
-    permission_classes = (HasSpotifyToken, )
+    # permission_classes = (HasSpotifyToken, )
 
     def get(self, request, *args, **kwargs):
-        token = self.request.session.session_key
+        token = request.headers["AccessToken"]
         response = execute_spotify_api_request(token, 'me')
         return Response(response)
 
 class UserPlaylist(APIView):
-    permission_classes = (HasSpotifyToken, )
+    # permission_classes = (HasSpotifyToken, )
 
     def get(self, request, *args, **kwargs):
         token = self.request.session.session_key
