@@ -40,6 +40,7 @@ const Home = () => {
         // check if we were already connected to spotify
         if ( document.cookie && getCookie("access_token")) {
             const _access_token = getCookie("access_token")
+                localStorage.setItem("access_token", _access_token)
                 setToken(_access_token)
                 setIsLinked(true)
         } else {
