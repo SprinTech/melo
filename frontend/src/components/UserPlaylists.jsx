@@ -6,55 +6,83 @@ import SpotifyWepApi from 'spotify-web-api-js';
 const UserPlaylists = ({ spotifyApi }) => {
     const [playlists, setPlaylists] = useState([])
     const [tracks, setTracks] = useState([])
+
+    const token = localStorage.getItem("access_token")
+    const requestInit = {
+        crossDomain: true,
+        method:'GET',
+        mode: "cors",
+        headers: {
+            "Content-Type": "application/json",
+            "AccessToken": token
+        }
+    }
     // spotifyApi.play({
     //     playerInstance: player,
     //     spotify_uri: 'spotify:track:7xGfFoTpQ2E7fRF5lN10tr',
     // })
 
 
+    // const getPlaylists = () => {
+    //     spotifyApi.getUserPlaylists()
+    //     .then(playlistData => {
+    //         setPlaylists(playlistData.items)
+    //     }, err => {
+    //         console.error(err);
+    //     });
+    // }
+
     const getPlaylists = () => {
-        spotifyApi.getUserPlaylists()
-        .then(playlistData => {
-            setPlaylists(playlistData.items)
-        }, err => {
-            console.error(err);
-        });
-    }
-
-    const getTracks = id => {
-        const tracksCopy = [...tracks]
-        playlists.forEach(({id}) => {
-            spotifyApi.getPlaylistTracks(id).then(({items}) => {
-                tracksCopy.push(items.map(item => item.track))
-
-            })
-            setTracks(tracksCopy)
-        })
-    }
-
-
-    // TODO call  to backend api for fetching playlists
-    useEffect(() => {
-        // getPlaylists()
-        fetch('/playlists')
+        fetch('http://127.0.0.1:8000/api/playlist/', requestInit)
         .then(response => response.json())
-        // .then(data => setPlaylists(data));
-        //     // empty dependency array means this effect will only run once (like componentDidMount in classes)
-            }, []);
+        .then(data => setPlaylists(data.items))
+    }
 
-    // TODO call  to backend api for fetching tracklists
+    // const getTracks = () => {
+    //     token = localStorage.getItem("access_token")
+    //     fetch('http://127.0.0.1:8000/api/', {
+    //         crossDomain: true,
+    //         method:'GET',
+    //         mode: "cors",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //             "AccessToken": token
+    //         },
+    //     })
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         setMe(data)
+    //     });
+    // }
+
+    // const getTracks = id => {
+    //     const tracksCopy = [...tracks]
+    //     playlists.forEach(({id}) => {
+    //         spotifyApi.getPlaylistTracks(id).then(({items}) => {
+    //             tracksCopy.push(items.map(item => item.track))
+
+    //         })
+    //         setTracks(tracksCopy)
+    //     })
+    // }
+
     useEffect(() => {
-        getTracks()
-        //     playlists.forEach(playlist => {
-            //         fetch(`/songs/tracks/${playlist}`)
-            //         .then(response => response.json())
-            //         .then(data => {
-                //             const _tracks = [...tracks]
-                //             _tracks.push({playlist: data})
-                //             setTracks(_tracks)
-                //         });
-                //         // empty dependency array means this effect will only run once (like componentDidMount in classes)
-            }, [playlists]);
+        getPlaylists()
+    }, []);
+
+    // // TODO call  to backend api for fetching tracklists
+    // useEffect(() => {
+    //     getTracks()
+    //         playlists.forEach(playlist => {
+    //                 fetch(`/songs/tracks/${playlist}`)
+    //                 .then(response => response.json())
+    //                 .then(data => {
+    //                         const _tracks = [...tracks]
+    //                         _tracks.push({playlist: data})
+    //                         setTracks(_tracks)
+    //                     });
+    //                     // empty dependency array means this effect will only run once (like componentDidMount in classes)
+    //         }, [playlists]);
 
     const cardStyle = {
         width: '18rem',

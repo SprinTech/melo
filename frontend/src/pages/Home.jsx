@@ -24,16 +24,25 @@ const Home = () => {
     const [view, setView] = useState("Dashboard")
     // token for spotify API queries
     const [token, setToken] = useState("")
-
     // handle color scheme
     const [theme, setTheme] = useState('light');
     const handleThemeToggle = () => theme === 'light' ? setTheme('dark') : setTheme('light')
 
-    const ThemeToggler = () => <Button id="theme-toggler" className='spotify-green' onClick={handleThemeToggle}>Switch Theme</Button>
+    const ThemeToggler = () => (
+        <Button id="theme-toggler"
+                className='spotify-green'
+                onClick={handleThemeToggle}>
+                    Switch Theme
+        </Button>
+    )
 
     const handleReset = () => {
         setView("Dashboard")
         resetCookies(setIsLinked)
+    }
+
+    const checkAccessToken = () => {
+        localStorage.getItem("me") && setToken(localStorage.getItem("me"))
     }
 
     useEffect(() => {
@@ -54,7 +63,7 @@ const Home = () => {
         }
         // clean the adress bar
         history.replaceState(null, document.getElementsByTagName("title")[0].innerHTML, window.location.pathname)
-    }, [document.cookie, token]); // dependencies : re-run only when one of these values change
+    }, [token]); // dependencies : re-run only when one of these values change
 
     const resetCookiesBtn = (
         <Button className="spotify-btn fa-brands fa-name"
@@ -72,7 +81,7 @@ const Home = () => {
                     <Navigation isLinked={isLinked} setView={setView} ThemeToggler={ThemeToggler} theme={theme}/>
                     <Container fluid>
                         {
-                            view === "Dashboard" && isLinked ? <Dashboard token={token}/> :
+                            view === "Dashboard" && isLinked ? <Dashboard /> :
                             view === "Analyze" && isLinked ? <Analyze />  :
                             view === "Other" && isLinked && <Main />
                         }
