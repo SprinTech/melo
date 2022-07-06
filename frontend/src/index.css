@@ -41,8 +41,7 @@ i {
 .center {
     position: relative;
     margin: auto;
-    top: 350px;
-    transform: translate(0, -50%);
+    top: 10%;
     padding: 10px;
     margin:auto;
     }
@@ -50,7 +49,6 @@ i {
 #app-login {
 
     width: 500px;
-    height: 580px;
     padding: 20px 40px;
     border-radius: 20%;
     border: 10px solid #258011;
@@ -113,4 +111,21 @@ line-height:30px;
 
 #theme-toggler {
     margin: 0 30px;
+}
+
+.btn-primary:hover, .btn-primary:focus {
+    background-color: var(--spotify-green);
+    border-color: var(--spotify-green);
+
+}
+
+.btn-outline-primary {
+    color: var(--spotify-green);
+    border-color: var(--spotify-green);
+}
+
+.btn-outline-primary:hover {
+    color: #fff;
+    background-color: var(--spotify-green);
+    border-color: var(--spotify-green);
 }

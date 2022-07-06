@@ -8,6 +8,7 @@ const Dotenv = require('dotenv-webpack');
 
 module.exports = {
     mode: 'development',
+    devtool: 'eval-cheap-module-source-map',
     module: {
         rules: [
             {

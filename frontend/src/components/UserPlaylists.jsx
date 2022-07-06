@@ -1,76 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Button, ListGroup } from 'react-bootstrap'
-import SpotifyWepApi from 'spotify-web-api-js';
+import useLocalStorageState from 'use-local-storage-state';
+import fetchRequest from '../utils/request';
 
+const UserPlaylists = () => {
+    const _playlists = JSON.parse(localStorage.getItem('playlists'))
+    const [playlists, setPlaylists] = useLocalStorageState('playlists', _playlists)
 
-const UserPlaylists = ({ spotifyApi }) => {
-    const [playlists, setPlaylists] = useState([])
-    const [tracks, setTracks] = useState([])
-
-    const token = localStorage.getItem("access_token")
-    const requestInit = {
-        crossDomain: true,
-        method:'GET',
-        mode: "cors",
-        headers: {
-            "Content-Type": "application/json",
-            "AccessToken": token
-        }
-    }
-    // spotifyApi.play({
-    //     playerInstance: player,
-    //     spotify_uri: 'spotify:track:7xGfFoTpQ2E7fRF5lN10tr',
-    // })
-
-
-    // const getPlaylists = () => {
-    //     spotifyApi.getUserPlaylists()
-    //     .then(playlistData => {
-    //         setPlaylists(playlistData.items)
-    //     }, err => {
-    //         console.error(err);
-    //     });
-    // }
 
     const getPlaylists = () => {
-        fetch('http://127.0.0.1:8000/api/playlist/', requestInit)
-        .then(response => response.json())
-        .then(data => setPlaylists(data.items))
+        fetchRequest('playlist/').then(data => setPlaylists(data.items))
     }
 
-    // const getTracks = () => {
-    //     token = localStorage.getItem("access_token")
-    //     fetch('http://127.0.0.1:8000/api/', {
-    //         crossDomain: true,
-    //         method:'GET',
-    //         mode: "cors",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //             "AccessToken": token
-    //         },
-    //     })
-    //     .then(response => response.json())
-    //     .then(data => {
-    //         setMe(data)
-    //     });
-    // }
-
-    // const getTracks = id => {
-    //     const tracksCopy = [...tracks]
-    //     playlists.forEach(({id}) => {
-    //         spotifyApi.getPlaylistTracks(id).then(({items}) => {
-    //             tracksCopy.push(items.map(item => item.track))
-
-    //         })
-    //         setTracks(tracksCopy)
-    //     })
-    // }
 
     useEffect(() => {
-        getPlaylists()
-    }, []);
+        playlists ?? getPlaylists()
+    }, [playlists]);
 
-    // // TODO call  to backend api for fetching tracklists
+    // // TODO call to backend api for fetching tracklists
     // useEffect(() => {
     //     getTracks()
     //         playlists.forEach(playlist => {

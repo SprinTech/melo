@@ -24,11 +24,11 @@ module.exports = Object.freeze({
     connectionOptions: {
         login: {
             text: "Log In",
-            switch: "Dont have an account ? Click here for sign"
+            switch: "Don't have an account ? Click here for signup"
         },
         signup: {
             text: "Sign Up",
-            switch: "Already have an account ? Click here for log in"
+            switch: "Already have an account ? Click here for login"
         }
     }
 })

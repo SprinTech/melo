@@ -36,6 +36,12 @@ const Home = () => {
         </Button>
     )
 
+    const views = {
+        "Dashboard": <Dashboard />,
+        "Analyze": <Analyze />,
+        "Other": <Main />,
+    }
+
     const handleReset = () => {
         setView("Dashboard")
         resetCookies(setIsLinked)
@@ -80,12 +86,13 @@ const Home = () => {
                 <div className='App'>
                     <Navigation isLinked={isLinked} setView={setView} ThemeToggler={ThemeToggler} theme={theme}/>
                     <Container fluid>
-                        {
-                            view === "Dashboard" && isLinked ? <Dashboard /> :
-                            view === "Analyze" && isLinked ? <Analyze />  :
-                            view === "Other" && isLinked && <Main />
-                        }
-
+                        {/* {
+                            !isLinked ? <Login /> :
+                            view === "Dashboard" ? <Dashboard /> :
+                            view === "Analyze" ? <Analyze />  :
+                            view === "Other" && <Main />
+                        } */}
+                        {!isLinked ? <Login /> : views[view]}
                         {/* <Analyze/> */}
                         <Row>
                             <Col md={4}>{/* <SideMenu /> */}</Col>

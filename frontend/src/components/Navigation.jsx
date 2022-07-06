@@ -45,7 +45,6 @@ const Navigation = ({ isLinked, setView, ThemeToggler, theme}) => {
                             </NavDropdown>
                         <Nav.Link href="#" disabled>Link</Nav.Link> */}
                     </Nav>
-                    {!isLinked && <Login />}
                     <ThemeToggler />
                     {searchForm}
                 </Navbar.Collapse>
