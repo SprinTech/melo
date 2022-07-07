@@ -40,7 +40,7 @@ const UserPlaylists = () => {
     return (
         <>
         <h1>My playlists</h1>
-        {playlists && playlists.map((playlist, idx) => {
+        {playlists && playlists.reverse().map((playlist, idx) => {
             return (
                 <Card className="playlist-card" key={idx} style={cardStyle}>
                     <Card.Header>{playlist.name}</Card.Header>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Form, Button, Alert, Fade} from 'react-bootstrap'
+import { Form, Button, Alert } from 'react-bootstrap'
 import Login from '../components/SpotifyLogin';
 import C from '../constants/loginApp';
 
@@ -49,7 +49,6 @@ const LoginApp = ({ setIsLogged }) => {
 
     const handleSubmit = e => {
         e.preventDefault()
-        console.log(input)
         if (validate()){
             setIsValid(true)
             console.log("ok")
@@ -76,7 +75,7 @@ const LoginApp = ({ setIsLogged }) => {
     }
 
     const renderErrorMessage = name => {
-        name === errorMessages.name && (
+        name === errorMessages[name] && (
             <Alert variant='danger' className="error">{errorMessages.name}</Alert>
         );
     }
@@ -91,7 +90,6 @@ const LoginApp = ({ setIsLogged }) => {
                     name={name}
                     placeholder={`Enter ${name}`}
                 />
-                {renderErrorMessage(name)}
                 {!isValid && errorMessages[name] &&
                     <Alert variant='danger' className="error">
                         {errorMessages[name]}
@@ -102,7 +100,7 @@ const LoginApp = ({ setIsLogged }) => {
 
     return (
         <div className='spotify-green reset-container'>
-            <h1 className="display-1" style={{ paddingTop:"20px", textAlign:"center" }}>Melomaniac</h1>
+            <h1 className="display-1" style={{ paddingTop:"20px", textAlign:"center", fontFamily:"circular"}}>Melomaniac</h1>
             <div id="app-login" className='center'>
                 <h1>{C.connectionOptions[logInOrSignUp].text}</h1>
 

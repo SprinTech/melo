@@ -44,11 +44,10 @@ const SideMenu = () => {
     }
 
     return (
-        <div className="spotify-green container">
-            <img src='coffee_spotify.ico'/>
-            {/* {Object.entries(menuItems).map(([key, value], idx) => {
-                return <Button key={key} onClick={e => handleClick(idx)}>{value}</Button>
-            })} */}
+        <div className="container">
+            {Object.entries(menuItems_0).map(([key, value], idx) => {
+                return <Button className="spotify-green" style={{margin:"10px"}} key={key} onClick={e => handleClick(idx)}>{key}</Button>
+            })}
 
         </div>
     );

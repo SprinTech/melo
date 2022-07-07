@@ -16,6 +16,10 @@ i {
     font-size: 2em;
 }
 
+body {
+    font-family: "Circular";
+}
+
 .spotify-green {
     background-color: var(--spotify-green);
     border-color: var(--spotify-green);
@@ -128,4 +132,7 @@ line-height:30px;
     color: #fff;
     background-color: var(--spotify-green);
     border-color: var(--spotify-green);
+}
+.playlist-card {
+    margin: 10px 20px
 }
