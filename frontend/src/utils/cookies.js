@@ -24,7 +24,7 @@ export const resetCookies = setIsLinked => {
     setIsLinked(false)
 }
 
-export const getCookie = name => {
+export const getCookie = name => { 
     if (document.cookie) {
         if (document.cookie.indexOf('; ') !== -1) {
             return document.cookie

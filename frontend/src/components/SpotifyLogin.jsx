@@ -4,7 +4,7 @@ import {Button, Row} from 'react-bootstrap'
 
 const Login = ({ setIsLogged }) => {
 
-    const spotify_auth_url = "http://127.0.0.1:8000/api/authorize"
+    const spotify_auth_url = "http://127.0.0.1:8000/api/authorize/"
 
     // const  handleSpotifyAuth = () =>  window.location.href = spotify_auth_url
 

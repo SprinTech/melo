@@ -52,9 +52,6 @@ const UserInfos = ({spotifyApi, token}) => {
             {me !== null && infosToDisplay.map(info => {
                 return <li key={info}><b>{info} :</b> {me[info]}</li>
             })}
-            <li key="user_link">
-                <a href={me["external_urls"]["spotify"]}>Profile link</a>
-            </li>
         </ul>
     )
 }
