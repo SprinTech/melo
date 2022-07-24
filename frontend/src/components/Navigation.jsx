@@ -7,12 +7,6 @@ import Analyze from './Analyze';
 
 const Navigation = ({ isLinked, setView, ThemeToggler, theme}) => {
 
-
-    const handleSelect = e => {
-        console.log(e)
-        setView(e)
-    }
-
     const searchForm = (
         <Form className="d-flex">
             <FormControl
@@ -31,7 +25,7 @@ const Navigation = ({ isLinked, setView, ThemeToggler, theme}) => {
                 <Navbar.Brand href="/home">Melomaniac</Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarScroll" />
                 <Navbar.Collapse id="navbarScroll">
-                    <Nav    onSelect={handleSelect} className="me-auto my-2 my-lg-0"
+                    <Nav    onSelect={e => setView(e)} className="me-auto my-2 my-lg-0"
                             style={{ maxHeight: '100px' }}
                             navbarScroll>
                         <Nav.Item><Nav.Link hidden={!isLinked} eventKey="Dashboard">Dashboard</Nav.Link></Nav.Item>
@@ -45,7 +39,6 @@ const Navigation = ({ isLinked, setView, ThemeToggler, theme}) => {
                             </NavDropdown>
                         <Nav.Link href="#" disabled>Link</Nav.Link> */}
                     </Nav>
-                    {!isLinked && <Login />}
                     <ThemeToggler />
                     {searchForm}
                 </Navbar.Collapse>

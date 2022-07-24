@@ -1,9 +1,1 @@
 data/
-
-# ignored for local dev :
-# .dockerignore
-# .gitignore
-# docker-compose.yml
-# api/Dockerfile
-# frontend/Dockerfile
-# api/core/settings.py

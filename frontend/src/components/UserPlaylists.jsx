@@ -1,60 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Button, ListGroup } from 'react-bootstrap'
-import SpotifyWepApi from 'spotify-web-api-js';
+import useLocalStorageState from 'use-local-storage-state';
+import fetchRequest from '../utils/request';
 
-
-const UserPlaylists = ({ spotifyApi }) => {
-    const [playlists, setPlaylists] = useState([])
-    const [tracks, setTracks] = useState([])
-    // spotifyApi.play({
-    //     playerInstance: player,
-    //     spotify_uri: 'spotify:track:7xGfFoTpQ2E7fRF5lN10tr',
-    // })
+const UserPlaylists = () => {
+    const _playlists = JSON.parse(localStorage.getItem('playlists'))
+    const [playlists, setPlaylists] = useLocalStorageState('playlists', _playlists)
 
 
     const getPlaylists = () => {
-        spotifyApi.getUserPlaylists()
-        .then(playlistData => {
-            setPlaylists(playlistData.items)
-        }, err => {
-            console.error(err);
-        });
-    }
-
-    const getTracks = id => {
-        const tracksCopy = [...tracks]
-        playlists.forEach(({id}) => {
-            spotifyApi.getPlaylistTracks(id).then(({items}) => {
-                tracksCopy.push(items.map(item => item.track))
-
-            })
-            setTracks(tracksCopy)
-        })
+        fetchRequest('playlist/').then(data => setPlaylists(data.items))
     }
 
 
-    // TODO call  to backend api for fetching playlists
     useEffect(() => {
-        // getPlaylists()
-        fetch('/playlists')
-        .then(response => response.json())
-        // .then(data => setPlaylists(data));
-        //     // empty dependency array means this effect will only run once (like componentDidMount in classes)
-            }, []);
+        playlists ?? getPlaylists()
+    }, [playlists]);
 
-    // TODO call  to backend api for fetching tracklists
-    useEffect(() => {
-        getTracks()
-        //     playlists.forEach(playlist => {
-            //         fetch(`/songs/tracks/${playlist}`)
-            //         .then(response => response.json())
-            //         .then(data => {
-                //             const _tracks = [...tracks]
-                //             _tracks.push({playlist: data})
-                //             setTracks(_tracks)
-                //         });
-                //         // empty dependency array means this effect will only run once (like componentDidMount in classes)
-            }, [playlists]);
+    // // TODO call to backend api for fetching tracklists
+    // useEffect(() => {
+    //     getTracks()
+    //         playlists.forEach(playlist => {
+    //                 fetch(`/songs/tracks/${playlist}`)
+    //                 .then(response => response.json())
+    //                 .then(data => {
+    //                         const _tracks = [...tracks]
+    //                         _tracks.push({playlist: data})
+    //                         setTracks(_tracks)
+    //                     });
+    //                     // empty dependency array means this effect will only run once (like componentDidMount in classes)
+    //         }, [playlists]);
 
     const cardStyle = {
         width: '18rem',
@@ -65,7 +40,7 @@ const UserPlaylists = ({ spotifyApi }) => {
     return (
         <>
         <h1>My playlists</h1>
-        {playlists && playlists.map((playlist, idx) => {
+        {playlists && playlists.reverse().map((playlist, idx) => {
             return (
                 <Card className="playlist-card" key={idx} style={cardStyle}>
                     <Card.Header>{playlist.name}</Card.Header>

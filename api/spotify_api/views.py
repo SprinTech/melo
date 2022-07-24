@@ -91,6 +91,6 @@ class UserPlaylist(APIView):
     # permission_classes = (HasSpotifyToken, )
 
     def get(self, request, *args, **kwargs):
-        token = self.request.session.session_key
+        token = request.headers["AccessToken"]
         response = execute_spotify_api_request(token, 'me/playlists')
         return Response(response)

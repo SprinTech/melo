@@ -1,22 +1,19 @@
 import React, { useState } from 'react'
-import { Form, Button, Alert, Fade} from 'react-bootstrap'
+import { Form, Button, Alert } from 'react-bootstrap'
 import Login from '../components/SpotifyLogin';
-import { useInputChange } from '../utils/useInputChange';
 import C from '../constants/loginApp';
 
 const LoginApp = ({ setIsLogged }) => {
     const [errorMessages, setErrorMessages] = useState({});
     const [logInOrSignUp, setLogInOrSignUp] = useState("login")
     const [open, setOpen] = useState(false);
+    const [input, setInput] = useState({});
+    const [isValid, setIsValid] = useState(true)
 
-    const [input, handleInputChange] = useInputChange()
-    // const [input, setInput] = useState({})
-
-    // const handleInputChange = (e) => setInput({
-    //     ...input,
-    //     [e.currentTarget.name]: e.currentTarget.value
-    // })
-
+    const handleInputChange = e => setInput({
+        ...input,
+        [e.currentTarget.name]: e.currentTarget.value
+    })
 
     const handleClick = () => {
         delete input["confirmation"]
@@ -24,9 +21,41 @@ const LoginApp = ({ setIsLogged }) => {
         setLogInOrSignUp(logInOrSignUp === "login" ? "signup" : "login")
     }
 
+    const validate = () => {
+        let errors = {}
+        let validityStatus = true
+        if (input["username"].length <= 6){
+            validityStatus = false
+            errors["username"] = "The name should contain more than 6 characters"
+        }
+        // if (input["email"].indexOf("@") === -1 ){
+        //     validityStatus = false
+        //     errors["email"] = "The email should contain @"
+        // }
+        if (input["password"].length <= 6){
+            validityStatus = false
+            errors["password"] = "The password should contain more than 6 characters"
+        }
+
+        if (logInOrSignUp === "signup" && input["password"] !== input["confirmation"]){
+            validityStatus = false
+            errors["confirmation"] = "Confirmation doesn't match password"
+        }
+
+        setErrorMessages(errors)
+        console.log(validityStatus)
+        return validityStatus
+    }
+
     const handleSubmit = e => {
         e.preventDefault()
-        setIsLogged(true)
+        if (validate()){
+            setIsValid(true)
+            console.log("ok")
+        } else {
+            setIsValid(false)
+        }
+        // setIsLogged(true)
         // TODO authentification handler
         // // Find user login info
         // const userData = database.find((user) => user.username === uname.value);
@@ -45,6 +74,11 @@ const LoginApp = ({ setIsLogged }) => {
         // }
     }
 
+    const renderErrorMessage = name => {
+        name === errorMessages[name] && (
+            <Alert variant='danger' className="error">{errorMessages.name}</Alert>
+        );
+    }
 
     const renderFormInput = (name, type) => {
         return (
@@ -56,21 +90,17 @@ const LoginApp = ({ setIsLogged }) => {
                     name={name}
                     placeholder={`Enter ${name}`}
                 />
-                {renderErrorMessage(name)}
+                {!isValid && errorMessages[name] &&
+                    <Alert variant='danger' className="error">
+                        {errorMessages[name]}
+                    </Alert>}
             </Form.Group>
         )
     }
 
-
-    const renderErrorMessage = name => {
-        name === errorMessages.name && (
-            <Alert variant='danger' className="error">{errorMessages.message}</Alert>
-        );
-    }
-
     return (
         <div className='spotify-green reset-container'>
-            <h1 className="display-1" style={{ paddingTop:"20px", textAlign:"center" }}>Melomaniac</h1>
+            <h1 className="display-1" style={{ paddingTop:"20px", textAlign:"center", fontFamily:"circular"}}>Melomaniac</h1>
             <div id="app-login" className='center'>
                 <h1>{C.connectionOptions[logInOrSignUp].text}</h1>
 
